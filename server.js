@@ -1,6 +1,7 @@
 import express from 'express';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import fs from 'fs';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -8,8 +9,12 @@ const __dirname = path.dirname(__filename);
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+const distPath = path.join(__dirname, 'dist');
+console.log(`Dist path: ${distPath}`);
+console.log(`Dist exists: ${fs.existsSync(distPath)}`);
+
 // Serve static files from dist
-app.use(express.static(path.join(__dirname, 'dist')));
+app.use(express.static(distPath));
 
 // Handle SPA routing - serve index.html for all unmatched routes
 app.use((req, res) => {
