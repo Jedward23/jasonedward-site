@@ -1,6 +1,7 @@
 @layer components {
   .h1 {
-    @apply text-4xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent;
+    @apply text-3xl font-bold text-foreground;
+    color: var(--foreground);
   }
 
   @screen md {
@@ -10,58 +11,109 @@
   }
 
   .h2 {
-    @apply text-3xl font-bold text-blue-400;
+    @apply text-2xl font-bold text-foreground;
+    color: var(--foreground);
   }
 
   @screen md {
     .h2 {
-      @apply text-4xl;
+      @apply text-3xl;
     }
   }
 
   .h3 {
-    @apply text-xl font-semibold text-blue-400;
+    @apply text-lg font-semibold text-foreground;
+    color: var(--foreground);
   }
 
   @screen md {
     .h3 {
-      @apply text-2xl;
-    }
-  }
-
-  .subtitle {
-    @apply text-lg text-slate-400;
-  }
-
-  @screen md {
-    .subtitle {
       @apply text-xl;
     }
   }
 
-  .body {
-    @apply text-base text-slate-300 leading-relaxed;
+  .subtitle {
+    @apply text-base;
+    color: var(--muted);
   }
 
   @screen md {
-    .body {
+    .subtitle {
       @apply text-lg;
     }
   }
 
+  .body {
+    @apply text-base leading-relaxed;
+    color: var(--foreground);
+    opacity: 0.95;
+  }
+
+  @screen md {
+    .body {
+      @apply text-base;
+    }
+  }
+
   .card {
-    @apply bg-white/5 border border-white/10 rounded-xl p-6 backdrop-blur-sm transition-all duration-300 hover:bg-white/8 hover:border-blue-500/50;
+    background-color: var(--card-bg);
+    border-color: var(--card-border);
+    @apply border rounded-lg p-8 transition-all duration-300 hover:shadow-md;
   }
 
   .button {
-    @apply inline-block px-6 py-3 bg-gradient-to-r from-blue-500 to-blue-600 text-white font-semibold rounded-lg transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-blue-500/30;
+    background-color: var(--accent);
+    color: white;
+    @apply inline-block px-6 py-3 font-semibold rounded-lg transition-all duration-300 hover:opacity-90;
   }
 
   .button-secondary {
-    @apply inline-block px-6 py-3 bg-white/10 border border-white/20 text-white font-semibold rounded-lg transition-all duration-300 hover:bg-white/20 hover:border-white/40;
+    background-color: transparent;
+    color: var(--foreground);
+    border-color: var(--border);
+    @apply inline-block px-6 py-3 border font-semibold rounded-lg transition-all duration-300 hover:bg-background;
   }
 
   .tag {
-    @apply inline-block px-3 py-1 bg-blue-500/10 border border-blue-500/30 text-blue-400 rounded-md text-sm;
+    background-color: var(--accent);
+    color: white;
+    @apply inline-block px-3 py-1 rounded-full text-xs font-semibold;
+  }
+
+  /* Profile image styling */
+  .profile-image {
+    @apply w-32 h-32 rounded-full object-cover border-4;
+    border-color: var(--accent);
+  }
+
+  /* Social icons */
+  .social-icon {
+    @apply w-6 h-6 transition-all duration-300 hover:scale-110;
+    color: var(--accent);
+  }
+
+  /* Navigation styling */
+  nav {
+    border-color: var(--border);
+    background-color: var(--background);
+  }
+
+  nav a {
+    color: var(--foreground);
+    @apply transition-all duration-300;
+  }
+
+  nav a:hover {
+    color: var(--accent);
+  }
+
+  /* Section spacing improvements */
+  section {
+    @apply py-16 px-6;
+  }
+
+  footer {
+    border-color: var(--border);
+    color: var(--muted);
   }
 }

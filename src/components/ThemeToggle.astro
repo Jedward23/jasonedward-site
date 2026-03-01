@@ -1,0 +1,68 @@
+<button 
+  id="theme-toggle" 
+  class="w-8 h-8 rounded-lg p-1 transition-colors"
+  title="Toggle dark mode"
+>
+  <svg 
+    class="sun-icon w-full h-full" 
+    fill="currentColor" 
+    viewBox="0 0 20 20"
+    style="display: none;"
+  >
+    <path fill-rule="evenodd" d="M10 2a1 1 0 011 1v2a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l-2.12-2.12a1 1 0 111.414-1.414l2.12 2.12a1 1 0 11-1.414 1.414zM2.05 6.464a1 1 0 111.414-1.414l2.12 2.12a1 1 0 11-1.414 1.414L2.05 6.464zm15.657-1.414a1 1 0 00-1.414 1.414l2.12 2.12a1 1 0 001.414-1.414l-2.12-2.12zM18 10a1 1 0 011 1v2a1 1 0 11-2 0v-2a1 1 0 011-1zM9 18a1 1 0 011 1v2a1 1 0 11-2 0v-2a1 1 0 011-1zm-8-1a1 1 0 10-2 0v2a1 1 0 102 0v-2z"/>
+  </svg>
+  <svg 
+    class="moon-icon w-full h-full" 
+    fill="currentColor" 
+    viewBox="0 0 20 20"
+  >
+    <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"/>
+  </svg>
+</button>
+
+<script>
+  const themeToggle = document.getElementById('theme-toggle');
+  const html = document.documentElement;
+  const sunIcon = document.querySelector('.sun-icon');
+  const moonIcon = document.querySelector('.moon-icon');
+
+  // Check for saved theme or system preference
+  function initTheme() {
+    const savedTheme = localStorage.getItem('theme') || 'light';
+    html.setAttribute('data-theme', savedTheme);
+    updateIcons(savedTheme);
+  }
+
+  function updateIcons(theme: string) {
+    if (theme === 'dark') {
+      sunIcon!.style.display = 'block';
+      moonIcon!.style.display = 'none';
+    } else {
+      sunIcon!.style.display = 'none';
+      moonIcon!.style.display = 'block';
+    }
+  }
+
+  themeToggle?.addEventListener('click', () => {
+    const currentTheme = html.getAttribute('data-theme') || 'light';
+    const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+    html.setAttribute('data-theme', newTheme);
+    localStorage.setItem('theme', newTheme);
+    updateIcons(newTheme);
+  });
+
+  initTheme();
+</script>
+
+<style>
+  button {
+    color: var(--foreground);
+    background-color: var(--card-bg);
+    border: 1px solid var(--border);
+  }
+
+  button:hover {
+    background-color: var(--accent);
+    color: white;
+  }
+</style>

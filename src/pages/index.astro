@@ -1,31 +1,35 @@
 ---
 import Layout from '../layouts/Layout.astro'
+import ThemeToggle from '../components/ThemeToggle.astro'
 ---
 
 <Layout title="Jason Edward Nicoll — Portfolio">
-	<nav class="border-b border-white/10 sticky top-0 z-50 bg-slate-900/80 backdrop-blur-md">
-		<div class="max-w-4xl mx-auto px-6 py-4 flex justify-between items-center">
-			<a href="/" class="text-2xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
-				J
+	<nav class="border-b sticky top-0 z-50 backdrop-blur-sm">
+		<div class="max-w-3xl mx-auto px-6 py-4 flex justify-between items-center">
+			<a href="/" class="text-xl font-bold">
+				Jason Edward
 			</a>
-			<div class="flex gap-6">
-				<a href="#work" class="text-slate-300 hover:text-white transition">Work</a>
-				<a href="#projects" class="text-slate-300 hover:text-white transition">Projects</a>
-				<a href="#about" class="text-slate-300 hover:text-white transition">About</a>
-				<a href="#contact" class="text-slate-300 hover:text-white transition">Contact</a>
+			<div class="flex gap-8 items-center">
+				<a href="#work" class="transition">Work</a>
+				<a href="#about" class="transition">About</a>
+				<a href="#contact" class="transition">Contact</a>
+				<ThemeToggle />
 			</div>
 		</div>
 	</nav>
 
 	<!-- Hero Section -->
-	<section class="max-w-4xl mx-auto px-6 py-20 text-center">
-		<div class="mb-8 text-6xl">🚀</div>
-		<h1 class="h1 mb-4">Jason Edward Nicoll</h1>
-		<p class="subtitle mb-8">Building autonomous AI systems that actually work</p>
-		<p class="body max-w-2xl mx-auto mb-8">
+	<section class="max-w-3xl mx-auto px-6 py-24">
+		<div class="text-center mb-12">
+			<h1 class="h1 mb-4">Jason Edward Nicoll</h1>
+			<p class="subtitle mb-4">Building autonomous AI systems that actually work</p>
+		</div>
+
+		<p class="body max-w-2xl mx-auto mb-12 text-center leading-loose">
 			Founder of <strong>Fern</strong> (AI Chief of Staff), CEO of <strong>Frosted</strong> (email marketing agency).
 			Spending time in Bali and Tokyo building the future of AI-powered business operations.
 		</p>
+
 		<div class="flex gap-4 justify-center flex-wrap">
 			<a href="#contact" class="button">Get In Touch</a>
 			<a href="https://x.com/codius444" class="button-secondary">Follow @codius444</a>
@@ -33,9 +37,9 @@ import Layout from '../layouts/Layout.astro'
 	</section>
 
 	<!-- Featured Work -->
-	<section id="work" class="max-w-4xl mx-auto px-6 py-20">
+	<section id="work" class="max-w-3xl mx-auto px-6 py-24">
 		<h2 class="h2 mb-12 text-center">Featured Work</h2>
-		<div class="grid md:grid-cols-2 gap-8">
+		<div class="grid md:grid-cols-2 gap-8 mb-12">
 			<!-- Fern -->
 			<div class="card">
 				<div class="text-4xl mb-4">🤖</div>
@@ -103,28 +107,28 @@ import Layout from '../layouts/Layout.astro'
 	</section>
 
 	<!-- Projects & Stack -->
-	<section id="projects" class="max-w-4xl mx-auto px-6 py-20 bg-white/5 rounded-xl">
+	<section id="projects" class="max-w-3xl mx-auto px-6 py-24">
 		<h2 class="h2 mb-12 text-center">Technical Expertise</h2>
-		<div class="grid md:grid-cols-3 gap-8">
+		<div class="grid md:grid-cols-3 gap-8 mb-12">
 			<div class="text-center">
-				<div class="text-3xl mb-3">🎯</div>
-				<h4 class="font-semibold mb-2">AI & Autonomous Systems</h4>
-				<p class="text-sm text-slate-400">Claude API, Grok, real-time voice, agentic workflows</p>
+				<div class="text-3xl mb-4">🎯</div>
+				<h4 class="h3 mb-3">AI & Autonomous Systems</h4>
+				<p class="body text-sm">Claude API, Grok, real-time voice, agentic workflows</p>
 			</div>
 			<div class="text-center">
-				<div class="text-3xl mb-3">🔗</div>
-				<h4 class="font-semibold mb-2">Integration Architecture</h4>
-				<p class="text-sm text-slate-400">Google Workspace, Twitter/X API, Telegram, WhatsApp</p>
+				<div class="text-3xl mb-4">🔗</div>
+				<h4 class="h3 mb-3">Integration Architecture</h4>
+				<p class="body text-sm">Google Workspace, Twitter/X API, Telegram, WhatsApp</p>
 			</div>
 			<div class="text-center">
-				<div class="text-3xl mb-3">📊</div>
-				<h4 class="font-semibold mb-2">Business Systems</h4>
-				<p class="text-sm text-slate-400">Email ops, sales automation, marketing automation</p>
+				<div class="text-3xl mb-4">📊</div>
+				<h4 class="h3 mb-3">Business Systems</h4>
+				<p class="body text-sm">Email ops, sales automation, marketing automation</p>
 			</div>
 		</div>
-		<div class="mt-12 pt-12 border-t border-white/10">
-			<p class="text-center text-slate-400 mb-6">Built with:</p>
-			<div class="flex flex-wrap justify-center gap-3">
+		<div class="pt-12 border-t" style="border-color: var(--border);">
+			<p class="body text-center mb-8">Built with:</p>
+			<div class="flex flex-wrap justify-center gap-4">
 				<span class="tag">Node.js</span>
 				<span class="tag">Claude SDK</span>
 				<span class="tag">Google APIs</span>
@@ -139,38 +143,38 @@ import Layout from '../layouts/Layout.astro'
 	</section>
 
 	<!-- About -->
-	<section id="about" class="max-w-4xl mx-auto px-6 py-20">
-		<h2 class="h2 mb-8 text-center">About</h2>
-		<div class="card">
-			<p class="body mb-6">
+	<section id="about" class="max-w-3xl mx-auto px-6 py-24">
+		<h2 class="h2 mb-12 text-center">About</h2>
+		<div class="space-y-8">
+			<p class="body leading-loose">
 				I'm Jason Edward Nicoll, currently based between Bali and Tokyo, building the intersection of
 				autonomous AI systems and business operations.
 			</p>
-			<p class="body mb-6">
+			<p class="body leading-loose">
 				Started with a simple question: "Can an AI agent actually run parts of a business?"
 				The answer is yes. Fern manages my calendar, strategies, and decisions. Frosted uses AI to optimize
 				email campaigns at scale. Codius is learning what it means to be an autonomous agent.
 			</p>
-			<p class="body mb-6">
-				I believe in:
-			</p>
-			<ul class="space-y-2 ml-6 mb-6">
-				<li class="body">• Building real, working systems (not vaporware)</li>
-				<li class="body">• Being honest about AI capabilities and limitations</li>
-				<li class="body">• Solving novel problems with novel solutions</li>
-				<li class="body">• Rapid iteration and learning from feedback</li>
-				<li class="body">• Deep technical excellence combined with business impact</li>
-			</ul>
-			<p class="body">
+			<div>
+				<p class="body mb-4 leading-loose">I believe in:</p>
+				<ul class="space-y-2 ml-6">
+					<li class="body">• Building real, working systems (not vaporware)</li>
+					<li class="body">• Being honest about AI capabilities and limitations</li>
+					<li class="body">• Solving novel problems with novel solutions</li>
+					<li class="body">• Rapid iteration and learning from feedback</li>
+					<li class="body">• Deep technical excellence combined with business impact</li>
+				</ul>
+			</div>
+			<p class="body leading-loose">
 				When I'm not building, I'm reading, exploring new cities, and having conversations that change how I think.
 			</p>
 		</div>
 	</section>
 
 	<!-- CTA -->
-	<section id="contact" class="max-w-4xl mx-auto px-6 py-20 text-center">
-		<h2 class="h2 mb-8">Let's Talk</h2>
-		<p class="subtitle mb-8">Whether it's AI strategy, technical discussion, or just interesting ideas</p>
+	<section id="contact" class="max-w-3xl mx-auto px-6 py-24 text-center">
+		<h2 class="h2 mb-6">Let's Talk</h2>
+		<p class="subtitle mb-12">Whether it's AI strategy, technical discussion, or just interesting ideas</p>
 		<div class="flex gap-4 justify-center flex-wrap">
 			<a href="https://x.com/codius444" class="button">X / Twitter</a>
 			<a href="https://t.me/Jason_edward_assistant_bot" class="button">Telegram</a>
@@ -179,8 +183,8 @@ import Layout from '../layouts/Layout.astro'
 	</section>
 
 	<!-- Footer -->
-	<footer class="border-t border-white/10 max-w-4xl mx-auto px-6 py-12 text-center text-slate-400">
-		<p>© 2026 Jason Edward Nicoll. All rights reserved.</p>
-		<p class="text-sm mt-2">Built with Astro + Tailwind CSS. Hosted on Railway.</p>
+	<footer class="border-t max-w-3xl mx-auto px-6 py-12 text-center">
+		<p class="body">© 2026 Jason Edward Nicoll. All rights reserved.</p>
+		<p class="subtitle text-sm mt-4">Built with Astro + Tailwind CSS. Hosted on Railway.</p>
 	</footer>
 </Layout>
