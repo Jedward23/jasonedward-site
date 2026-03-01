@@ -12,6 +12,13 @@ const PORT = process.env.PORT || 3000;
 const distPath = path.join(__dirname, 'dist');
 console.log(`Dist path: ${distPath}`);
 console.log(`Dist exists: ${fs.existsSync(distPath)}`);
+console.log(`Starting server on port ${PORT}`);
+
+// Health check endpoint
+app.get('/health', (req, res) => {
+  console.log('Health check requested');
+  res.json({ status: 'ok', port: PORT, distExists: fs.existsSync(distPath) });
+});
 
 // Serve static files from dist
 app.use(express.static(distPath));
