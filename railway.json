@@ -1,9 +1,9 @@
 {
   "build": {
     "builder": "nixpacks",
-    "buildCommand": "npm run build"
+    "buildCommand": "npm install && npm run build"
   },
   "deploy": {
-    "startCommand": "node -e 'const http = require(\"http\"); const fs = require(\"fs\"); const path = require(\"path\"); const server = http.createServer((req, res) => { let file = req.url === \"/\" ? \"/index.html\" : req.url; const filePath = path.join(\"./dist\", file); try { const content = fs.readFileSync(filePath); res.writeHead(200, { \"Content-Type\": \"text/html\" }); res.end(content); } catch (e) { try { const index = fs.readFileSync(\"./dist/index.html\"); res.writeHead(200, { \"Content-Type\": \"text/html\" }); res.end(index); } catch (e2) { res.writeHead(404); res.end(\"Not Found\"); } } }); server.listen(3000);'"
+    "startCommand": "node server.js"
   }
 }

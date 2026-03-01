@@ -1,13 +1,4 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
-/* Custom fonts - monospace like Peter */
-@font-face {
-  font-family: "IBM Plex Mono";
-  src: url("https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600;700&display=swap");
-  font-display: swap;
-}
+@import "tailwindcss";
 
 * {
   margin: 0;
