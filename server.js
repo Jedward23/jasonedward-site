@@ -11,12 +11,11 @@ const PORT = process.env.PORT || 3000;
 // Serve static files from dist
 app.use(express.static(path.join(__dirname, 'dist')));
 
-// Handle SPA routing - serve index.html for all routes
-// Express 5: wildcard route for SPA
-app.get('/:*', (req, res) => {
+// Handle SPA routing - serve index.html for all unmatched routes
+app.use((req, res) => {
   res.sendFile(path.join(__dirname, 'dist', 'index.html'));
 });
 
-app.listen(PORT, () => {
-  console.log(`Server running at http://localhost:${PORT}`);
+app.listen(PORT, '0.0.0.0', () => {
+  console.log(`Server running on 0.0.0.0:${PORT}`);
 });
