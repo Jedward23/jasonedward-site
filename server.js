@@ -18,9 +18,27 @@ app.use(express.static(distPath));
 
 // Handle SPA routing - serve index.html for all unmatched routes
 app.use((req, res) => {
-  res.sendFile(path.join(__dirname, 'dist', 'index.html'));
+  const indexPath = path.join(__dirname, 'dist', 'index.html');
+  console.log(`Serving index.html from: ${indexPath}`);
+  res.sendFile(indexPath, (err) => {
+    if (err) {
+      console.error(`Error serving index.html: ${err}`);
+      res.status(500).send('Error');
+    }
+  });
 });
 
-app.listen(PORT, '0.0.0.0', () => {
+// Error handling middleware
+app.use((err, req, res, next) => {
+  console.error(`Server error: ${err}`);
+  res.status(500).send('Server error');
+});
+
+const server = app.listen(PORT, '0.0.0.0', () => {
   console.log(`Server running on 0.0.0.0:${PORT}`);
+});
+
+server.on('error', (err) => {
+  console.error(`Server listen error: ${err}`);
+  process.exit(1);
 });
