@@ -1,170 +1,76 @@
 ---
+import { ViewTransitions } from "astro:transitions";
 import '../styles/global.css'
-import '../styles/components.css'
 
 interface Props {
-  title: string
+  title?: string
   description?: string
 }
 
-const { title, description = "Jason Edward Nicoll — Building AI systems that work" } = Astro.props
+const { title = "Jason Edward", description = "Building AI systems that work" } = Astro.props
 ---
 
 <!doctype html>
-<html lang="en" data-theme="light">
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content={description} />
-    <title>{title} — jasonedward.me</title>
+    <meta name="viewport" content="width=device-width" />
+    <meta name="view-transition" content="same-origin" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600;700&display=swap" rel="stylesheet" />
+    <link rel="canonical" href={new URL(Astro.url.pathname, Astro.url)} />
+    <meta name="generator" content={Astro.generator} />
+
+    <!-- Preload fonts for instant text rendering -->
+    <link rel="preload" href="/fonts/atkinson-regular.woff" as="font" type="font/woff" crossorigin />
+    <link rel="preload" href="/fonts/atkinson-bold.woff" as="font" type="font/woff" crossorigin />
+
+    <!-- Meta -->
+    <title>{title}</title>
+    <meta name="title" content={title} />
+    <meta name="description" content={description} />
+    <meta name="author" content="Jason Edward" />
+
+    <!-- Open Graph -->
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={Astro.url} />
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary" />
+    <meta property="twitter:title" content={title} />
+    <meta property="twitter:description" content={description} />
+
+    <meta name="theme-color" content="" />
+
+    <!-- RSS Feed -->
+    <link rel="alternate" type="application/rss+xml" title="Jason Edward" href="/rss.xml" />
+
+    <ViewTransitions />
+
+    <!-- Dark mode detection (inline to prevent flash) -->
+    <script is:inline>
+      const theme = (() => {
+        if (typeof localStorage !== "undefined" && localStorage.getItem("theme")) {
+          return localStorage.getItem("theme");
+        }
+        if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
+          return "dark";
+        }
+        return "light";
+      })();
+      document.documentElement.setAttribute("data-theme", theme);
+    </script>
   </head>
   <body>
-    <!-- Header -->
-    <header class="site-header">
-      <div class="header-inner">
-        <a href="/" class="header-name">Jason Edward</a>
-        <nav class="header-nav-desktop">
-          <a href="/">Home</a>
-          <a href="/blog">Blog</a>
-        </nav>
-        <button class="hamburger" aria-label="Menu" onclick="document.querySelector('.mobile-menu').classList.toggle('open')">
-          <span class="hamburger-line"></span>
-          <span class="hamburger-line"></span>
-          <span class="hamburger-line"></span>
-        </button>
-      </div>
-      <nav class="mobile-menu">
-        <a href="/" onclick="document.querySelector('.mobile-menu').classList.remove('open')">Home</a>
-        <a href="/blog" onclick="document.querySelector('.mobile-menu').classList.remove('open')">Blog</a>
-      </nav>
-    </header>
-
     <slot />
-
-    <style>
-      .site-header {
-        position: sticky;
-        top: 0;
-        z-index: 50;
-        background-color: var(--bg);
-        border-bottom: 1px solid var(--bd);
-      }
-
-      .header-inner {
-        max-width: 48rem;
-        margin: 0 auto;
-        padding: 0.875rem 1.5rem;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-      }
-
-      @media (min-width: 640px) {
-        .header-inner { padding: 0.875rem 2rem; }
-      }
-
-      @media (min-width: 768px) {
-        .header-inner { padding: 0.875rem 3rem; }
-      }
-
-      .header-name {
-        font-weight: 700;
-        font-size: 1rem;
-        color: var(--fg);
-        text-decoration: none;
-        letter-spacing: -0.01em;
-      }
-
-      .header-name:hover {
-        color: var(--ac);
-        opacity: 1;
-      }
-
-      .header-nav-desktop {
-        display: none;
-        gap: 1.5rem;
-      }
-
-      @media (min-width: 640px) {
-        .header-nav-desktop {
-          display: flex;
-        }
-        .hamburger {
-          display: none !important;
-        }
-      }
-
-      .header-nav-desktop a {
-        font-size: 0.875rem;
-        color: var(--mt);
-        text-decoration: none;
-        transition: color 0.2s;
-        font-weight: 500;
-      }
-
-      .header-nav-desktop a:hover {
-        color: var(--ac);
-        opacity: 1;
-      }
-
-      /* Hamburger */
-      .hamburger {
-        display: flex;
-        flex-direction: column;
-        gap: 4px;
-        background: none;
-        border: none;
-        cursor: pointer;
-        padding: 4px;
-      }
-
-      .hamburger-line {
-        width: 20px;
-        height: 2px;
-        background-color: var(--fg);
-        border-radius: 1px;
-        transition: all 0.2s ease;
-      }
-
-      .hamburger:hover .hamburger-line {
-        background-color: var(--ac);
-      }
-
-      /* Mobile menu */
-      .mobile-menu {
-        display: none;
-        flex-direction: column;
-        max-width: 48rem;
-        margin: 0 auto;
-        padding: 0 1.5rem 1rem;
-        gap: 0.5rem;
-      }
-
-      .mobile-menu.open {
-        display: flex;
-      }
-
-      @media (min-width: 640px) {
-        .mobile-menu {
-          display: none !important;
-        }
-      }
-
-      .mobile-menu a {
-        font-size: 0.9rem;
-        color: var(--mt);
-        text-decoration: none;
-        padding: 0.5rem 0;
-        transition: color 0.2s;
-        font-weight: 500;
-      }
-
-      .mobile-menu a:hover {
-        color: var(--ac);
-        opacity: 1;
-      }
-    </style>
   </body>
 </html>
+
+<style>
+  html,
+  body {
+    margin: 0;
+    width: 100%;
+    height: 100%;
+  }
+</style>
