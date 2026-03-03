@@ -1,18 +1,17 @@
 ---
 import Layout from '../layouts/Layout.astro'
-import ThemeToggle from '../components/ThemeToggle.astro'
+import { getCollection } from 'astro:content'
+
+const allPosts = await getCollection('blog')
+const posts = allPosts
+  .filter((post) => !post.data.draft)
+  .sort((a, b) => new Date(b.data.pubDate).getTime() - new Date(a.data.pubDate).getTime())
+  .slice(0, 3)
 ---
 
 <Layout title="Jason Edward Nicoll">
-	<nav class="border-b sticky top-0 z-50 backdrop-blur-sm">
-		<div class="max-w-2xl mx-auto px-6 md:px-8 py-4 flex justify-between items-center">
-			<a href="/" class="text-lg md:text-xl font-bold">Jason Edward</a>
-			<ThemeToggle />
-		</div>
-	</nav>
-
 	<!-- Hero Section -->
-	<section class="max-w-2xl mx-auto px-6 md:px-8 py-16 md:py-32">
+	<section class="hero-section">
 		<div class="text-center mb-12">
 			<div class="mb-8 flex justify-center">
 				<img
@@ -50,54 +49,132 @@ import ThemeToggle from '../components/ThemeToggle.astro'
 		</div>
 
 		<!-- Brief Bio -->
-		<p class="text-center text-base md:text-lg leading-relaxed max-w-xl mx-auto text-muted mb-8">
+		<p class="text-center text-base md:text-lg leading-relaxed max-w-2xl mx-auto text-muted">
 			Founder of <strong class="text-foreground">Fern</strong> (AI Chief of Staff). CEO of <strong class="text-foreground">Frosted</strong> (email marketing). Building autonomous systems between Bali and Tokyo.
 		</p>
 	</section>
 
 	<!-- Blog/Writing -->
-	<section class="max-w-2xl mx-auto px-6 md:px-8 py-16 md:py-24 border-t" style="border-color: var(--border);">
-		<h2 class="text-2xl md:text-3xl font-bold mb-12">Writing</h2>
+	<section class="blog-section">
+		<div class="flex items-baseline justify-between mb-12">
+			<h2 class="text-2xl md:text-3xl font-bold">Writing</h2>
+			<a href="/blog" class="text-sm text-muted hover:text-accent transition">View all</a>
+		</div>
 
 		<!-- Blog items -->
 		<div class="space-y-8">
-			<article class="pb-8 border-b" style="border-color: var(--border);">
-				<div class="flex items-baseline gap-3 mb-2">
-					<a href="#" class="text-lg md:text-xl font-bold hover:text-accent transition">Building Real AI Systems</a>
-					<span class="text-sm text-muted">5 min read</span>
-				</div>
-				<div class="text-sm text-muted mb-3">Mar 1, 2026</div>
-				<p class="text-base leading-relaxed text-muted">
-					What it actually takes to build AI systems that work in production, not just in demos.
-				</p>
-			</article>
-
-			<article class="pb-8 border-b" style="border-color: var(--border);">
-				<div class="flex items-baseline gap-3 mb-2">
-					<a href="#" class="text-lg md:text-xl font-bold hover:text-accent transition">Voice Agents at Scale</a>
-					<span class="text-sm text-muted">8 min read</span>
-				</div>
-				<div class="text-sm text-muted mb-3">Feb 28, 2026</div>
-				<p class="text-base leading-relaxed text-muted">
-					Lessons from building Codius, an autonomous voice agent that learns and improves over time.
-				</p>
-			</article>
-
-			<article>
-				<div class="flex items-baseline gap-3 mb-2">
-					<a href="#" class="text-lg md:text-xl font-bold hover:text-accent transition">Email Marketing at 17 Clients</a>
-					<span class="text-sm text-muted">12 min read</span>
-				</div>
-				<div class="text-sm text-muted mb-3">Feb 20, 2026</div>
-				<p class="text-base leading-relaxed text-muted">
-					How Frosted manages multiple clients with AI-powered email strategies and stays sane.
-				</p>
-			</article>
+			{posts.map((post) => (
+				<article class="pb-8">
+					<div class="mb-3">
+						<a href={`/blog/${post.slug}`} class="text-lg md:text-xl font-bold hover:text-accent transition">
+							{post.data.title}
+						</a>
+					</div>
+					<div class="flex gap-3 text-sm text-muted mb-3">
+						<time datetime={post.data.pubDate.toISOString()}>
+							{post.data.pubDate.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })}
+						</time>
+						{post.data.readTime && (
+							<>
+								<span>·</span>
+								<span>{post.data.readTime}</span>
+							</>
+						)}
+					</div>
+					<p class="text-base leading-relaxed text-muted">
+						{post.data.description}
+					</p>
+				</article>
+			))}
 		</div>
 	</section>
 
 	<!-- Footer -->
-	<footer class="border-t max-w-2xl mx-auto px-6 md:px-8 py-12 text-center text-sm text-muted" style="border-color: var(--border);">
+	<footer class="footer">
 		<p>© 2026 Jason Edward. All rights reserved.</p>
 	</footer>
 </Layout>
+
+<style>
+	.hero-section {
+		max-width: 48rem;
+		margin-left: auto;
+		margin-right: auto;
+		padding-left: 1.5rem;
+		padding-right: 1.5rem;
+		padding-top: 3rem;
+		padding-bottom: 3rem;
+		flex: 1;
+	}
+
+	.blog-section {
+		max-width: 48rem;
+		margin-left: auto;
+		margin-right: auto;
+		padding-left: 1.5rem;
+		padding-right: 1.5rem;
+		padding-top: 4rem;
+		padding-bottom: 8rem;
+	}
+
+	.footer {
+		margin-top: auto;
+		max-width: 48rem;
+		margin-left: auto;
+		margin-right: auto;
+		padding-left: 1.5rem;
+		padding-right: 1.5rem;
+		padding-top: 3rem;
+		padding-bottom: 3rem;
+		text-align: center;
+		font-size: 0.875rem;
+		color: var(--muted);
+		width: 100%;
+	}
+
+	@media (min-width: 640px) {
+		.hero-section {
+			padding-left: 2rem;
+			padding-right: 2rem;
+			padding-top: 4rem;
+			padding-bottom: 4rem;
+		}
+
+		.blog-section {
+			padding-left: 2rem;
+			padding-right: 2rem;
+			padding-top: 6rem;
+			padding-bottom: 10rem;
+		}
+
+		.footer {
+			padding-left: 2rem;
+			padding-right: 2rem;
+			padding-top: 4rem;
+			padding-bottom: 4rem;
+		}
+	}
+
+	@media (min-width: 768px) {
+		.hero-section {
+			padding-left: 3rem;
+			padding-right: 3rem;
+			padding-top: 6rem;
+			padding-bottom: 6rem;
+		}
+
+		.blog-section {
+			padding-left: 3rem;
+			padding-right: 3rem;
+			padding-top: 8rem;
+			padding-bottom: 12rem;
+		}
+
+		.footer {
+			padding-left: 3rem;
+			padding-right: 3rem;
+			padding-top: 6rem;
+			padding-bottom: 6rem;
+		}
+	}
+</style>

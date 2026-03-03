@@ -1,0 +1,153 @@
+---
+import Layout from './Layout.astro';
+
+interface Props {
+  title: string;
+  description: string;
+  pubDate: Date;
+  readTime?: string;
+}
+
+const { title, description, pubDate, readTime } = Astro.props;
+---
+
+<Layout title={title}>
+  <article class="blog-article">
+    <header class="mb-16">
+      <h1 class="text-3xl md:text-4xl font-bold mb-4">{title}</h1>
+      <p class="text-lg text-muted mb-6">{description}</p>
+      <div class="flex gap-4 text-sm text-muted">
+        <time datetime={pubDate.toISOString()}>
+          {pubDate.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
+        </time>
+        {readTime && <span>·</span>}
+        {readTime && <span>{readTime}</span>}
+      </div>
+    </header>
+
+    <div class="prose prose-sm md:prose md:prose-lg max-w-none text-foreground leading-relaxed">
+      <slot />
+    </div>
+  </article>
+
+  <footer class="blog-footer">
+    <p>© 2026 Jason Edward. All rights reserved.</p>
+  </footer>
+</Layout>
+
+<style>
+  .blog-article {
+    max-width: 48rem;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+    padding-top: 3rem;
+    padding-bottom: 6rem;
+  }
+
+  @media (min-width: 640px) {
+    .blog-article {
+      padding-left: 2rem;
+      padding-right: 2rem;
+      padding-top: 4rem;
+      padding-bottom: 6rem;
+    }
+  }
+
+  @media (min-width: 768px) {
+    .blog-article {
+      padding-left: 3rem;
+      padding-right: 3rem;
+      padding-top: 6rem;
+      padding-bottom: 8rem;
+    }
+  }
+
+  :global(.prose) {
+    --prose-body: var(--foreground);
+    --prose-headings: var(--foreground);
+    --prose-bold: var(--foreground);
+    --prose-links: var(--accent);
+    --prose-hr: var(--border);
+    --prose-th-borders: var(--border);
+    --prose-td-borders: var(--border);
+  }
+
+  :global(.prose strong) {
+    color: var(--foreground);
+    font-weight: 600;
+  }
+
+  :global(.prose h2) {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+  }
+
+  :global(.prose h3) {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-top: 1.5rem;
+    margin-bottom: 0.75rem;
+  }
+
+  :global(.prose p) {
+    margin-bottom: 1.25rem;
+    line-height: 1.75;
+  }
+
+  :global(.prose ul), :global(.prose ol) {
+    margin-bottom: 1.25rem;
+    margin-left: 1.5rem;
+  }
+
+  :global(.prose li) {
+    margin-bottom: 0.5rem;
+  }
+
+  :global(.prose a) {
+    color: var(--accent);
+    text-decoration: none;
+    transition: opacity 0.3s ease;
+  }
+
+  :global(.prose a:hover) {
+    opacity: 0.8;
+    text-decoration: underline;
+  }
+
+  .blog-footer {
+    margin-top: auto;
+    max-width: 48rem;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+    text-align: center;
+    font-size: 0.875rem;
+    color: var(--muted);
+    width: 100%;
+  }
+
+  @media (min-width: 640px) {
+    .blog-footer {
+      padding-left: 2rem;
+      padding-right: 2rem;
+      padding-top: 4rem;
+      padding-bottom: 4rem;
+    }
+  }
+
+  @media (min-width: 768px) {
+    .blog-footer {
+      padding-left: 3rem;
+      padding-right: 3rem;
+      padding-top: 6rem;
+      padding-bottom: 6rem;
+    }
+  }
+</style>

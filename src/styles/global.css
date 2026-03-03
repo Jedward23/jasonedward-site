@@ -1,5 +1,13 @@
 @import "tailwindcss";
 
+@theme {
+  --color-background: var(--bg);
+  --color-foreground: var(--fg);
+  --color-accent: var(--ac);
+  --color-muted: var(--mt);
+  --color-border: var(--bd);
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -8,23 +16,19 @@
 
 :root,
 html[data-theme="light"] {
-  --background: #fdfdfd;
-  --foreground: #282728;
-  --accent: #006cac;
-  --muted: #717171;
-  --border: #e6e6e6;
-  --card-bg: #ffffff;
-  --card-border: #ece9e9;
+  --bg: #fdfdfd;
+  --fg: #282728;
+  --ac: #006cac;
+  --mt: #717171;
+  --bd: #e6e6e6;
 }
 
 html[data-theme="dark"] {
-  --background: #0f172a;
-  --foreground: #e2e8f0;
-  --accent: #3b82f6;
-  --muted: #94a3b8;
-  --border: #1e293b;
-  --card-bg: #1a2332;
-  --card-border: #334155;
+  --bg: #212737;
+  --fg: #eaedf3;
+  --ac: #ff6b01;
+  --mt: #343f60;
+  --bd: #ab4b08;
 }
 
 html {
@@ -33,8 +37,113 @@ html {
 }
 
 body {
-  background-color: var(--background);
-  color: var(--foreground);
-  min-height: 100vh;
+  background-color: var(--bg);
+  color: var(--fg);
   transition: background-color 0.3s ease, color 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* Headings */
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 700;
+  color: var(--fg);
+}
+
+h1 {
+  font-size: 2.25rem;
+  margin-bottom: 1rem;
+}
+
+@media (min-width: 768px) {
+  h1 { font-size: 3rem; }
+}
+
+h2 {
+  font-size: 1.875rem;
+  margin-bottom: 0.75rem;
+  margin-top: 2rem;
+}
+
+@media (min-width: 768px) {
+  h2 { font-size: 2.25rem; }
+}
+
+h3 {
+  font-size: 1.5rem;
+  margin-bottom: 0.75rem;
+  margin-top: 1.5rem;
+}
+
+@media (min-width: 768px) {
+  h3 { font-size: 1.875rem; }
+}
+
+/* Body elements */
+p {
+  margin-bottom: 1rem;
+  line-height: 1.625;
+}
+
+a {
+  color: var(--ac);
+  text-decoration: underline;
+  text-decoration-style: dashed;
+  text-underline-offset: 4px;
+  transition: opacity 0.2s;
+}
+
+a:hover {
+  opacity: 0.8;
+}
+
+strong {
+  font-weight: 700;
+  color: var(--fg);
+}
+
+/* Lists */
+ul, ol {
+  margin-left: 1rem;
+  margin-bottom: 1rem;
+}
+
+li {
+  margin-bottom: 0.5rem;
+}
+
+/* Code */
+code {
+  background-color: rgba(113, 113, 113, 0.2);
+  border-radius: 0.25rem;
+  padding: 0.25rem 0.5rem;
+  font-size: 0.875rem;
+  font-family: 'IBM Plex Mono', monospace;
+}
+
+blockquote {
+  border-left: 4px solid var(--ac);
+  padding-left: 1rem;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  margin: 1rem 0;
+  opacity: 0.8;
+}
+
+hr {
+  border-color: var(--bd);
+  margin: 2rem 0;
+}
+
+/* Focus states */
+a:focus, button:focus {
+  outline: 2px dashed var(--ac);
+  outline-offset: 2px;
+}
+
+/* Selection */
+::selection {
+  background-color: rgba(0, 108, 172, 0.2);
+  color: var(--fg);
 }
