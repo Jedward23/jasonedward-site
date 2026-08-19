@@ -2,6 +2,7 @@
 interface ProductLink {
   label: string;
   href: string;
+  iconSrc?: string;
 }
 
 interface Props {
@@ -12,10 +13,11 @@ interface Props {
   description: string;
   href: string;
   tone: 'amber' | 'blue';
+  logoSrc?: string;
   products?: ProductLink[];
 }
 
-const { index, role, name, headline, description, href, tone, products = [] } = Astro.props;
+const { index, role, name, headline, description, href, tone, logoSrc, products = [] } = Astro.props;
 ---
 
 <article class:list={['company-card', `company-card--${tone}`]}>
@@ -24,7 +26,11 @@ const { index, role, name, headline, description, href, tone, products = [] } = 
     <span>{role}</span>
   </div>
   <div class="company-card-body">
-    <p class="company-name">{name}</p>
+    {logoSrc ? (
+      <img class="company-logo" src={logoSrc} alt={`${name} logo`} width="112" height="26" loading="lazy" />
+    ) : (
+      <p class="company-name">{name}</p>
+    )}
     <h3>{headline}</h3>
     <p>{description}</p>
   </div>
@@ -33,7 +39,11 @@ const { index, role, name, headline, description, href, tone, products = [] } = 
       <span>Portfolio</span>
       <div>
         {products.map((product) => (
-          <a href={product.href} target="_blank" rel="noopener noreferrer">{product.label} <span aria-hidden="true">↗</span></a>
+          <a href={product.href} target="_blank" rel="noopener noreferrer">
+            {product.iconSrc && <img src={product.iconSrc} alt="" width="18" height="18" loading="lazy" aria-hidden="true" />}
+            <span>{product.label}</span>
+            <span aria-hidden="true">↗</span>
+          </a>
         ))}
       </div>
     </div>

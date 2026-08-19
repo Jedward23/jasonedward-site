@@ -30,6 +30,10 @@
   --line-strong: rgba(245, 245, 242, 0.25);
   --font-sans: "Instrument Sans", Arial, sans-serif;
   --font-serif: "Playfair Display", Georgia, serif;
+  --type-kicker: 0.75rem;
+  --type-meta: 0.8125rem;
+  --type-support: 1rem;
+  --type-support-lg: 1.0625rem;
   color-scheme: dark;
 }
 
@@ -102,7 +106,7 @@ em { font-family: var(--font-serif); font-weight: 400; }
 .primary-nav { display: flex; align-items: center; gap: clamp(1rem, 2.8vw, 2.25rem); }
 .primary-nav a {
   color: var(--foreground-soft);
-  font-size: 0.78rem;
+  font-size: var(--type-meta);
   font-weight: 550;
   transition: color 180ms ease;
 }
@@ -116,7 +120,8 @@ em { font-family: var(--font-serif); font-weight: 400; }
   gap: 0.65rem;
   margin-bottom: 1.5rem;
   color: var(--foreground-muted);
-  font-size: 0.68rem;
+  font-size: var(--type-kicker);
+  line-height: 1.125rem;
   font-weight: 650;
   letter-spacing: 0.18em;
   text-transform: uppercase;
@@ -173,7 +178,8 @@ em { font-family: var(--font-serif); font-weight: 400; }
   gap: 0.65rem;
   margin-top: 2.25rem;
   color: var(--foreground-muted);
-  font-size: 0.7rem;
+  font-size: var(--type-kicker);
+  line-height: 1.125rem;
   letter-spacing: 0.04em;
 }
 .signal-dot { width: 0.46rem; height: 0.46rem; border-radius: 50%; background: #67c587; box-shadow: 0 0 0 0.3rem rgba(103, 197, 135, 0.08); }
@@ -207,7 +213,8 @@ em { font-family: var(--font-serif); font-weight: 400; }
   justify-content: space-between;
   gap: 1rem;
   color: rgba(245, 245, 242, 0.78);
-  font-size: 0.62rem;
+  font-size: 0.6875rem;
+  line-height: 1rem;
   letter-spacing: 0.06em;
   text-transform: uppercase;
 }
@@ -261,21 +268,24 @@ em { font-family: var(--font-serif); font-weight: 400; }
   justify-content: space-between;
   gap: 1rem;
   color: var(--foreground-muted);
-  font-size: 0.65rem;
+  font-size: var(--type-kicker);
+  line-height: 1.125rem;
   font-weight: 650;
   letter-spacing: 0.16em;
   text-transform: uppercase;
 }
 .company-card-body { max-width: 30rem; margin-top: auto; padding-top: 4rem; }
-.company-name { margin-bottom: 1rem; color: var(--foreground-muted); font-size: 0.75rem; letter-spacing: 0.12em; text-transform: uppercase; }
+.company-name { margin-bottom: 1rem; color: var(--foreground-muted); font-size: var(--type-meta); line-height: 1.25rem; letter-spacing: 0.12em; text-transform: uppercase; }
+.company-logo { width: min(7rem, 40%); height: auto; margin-bottom: 1.4rem; object-fit: contain; object-position: left center; }
 .company-card h3 { margin-bottom: 1.3rem; font-size: clamp(2.2rem, 4vw, 4.25rem); font-weight: 540; letter-spacing: -0.06em; line-height: 0.97; }
-.company-card-body > p:last-child { margin-bottom: 0; color: var(--foreground-soft); font-size: 0.96rem; line-height: 1.63; }
+.company-card-body > p:last-child { margin-bottom: 0; color: var(--foreground-soft); font-size: var(--type-support-lg); line-height: 1.65; }
 .company-products { display: flex; align-items: center; justify-content: space-between; gap: 1rem; margin-top: 2rem; padding-top: 1.2rem; border-top: 1px solid var(--line); }
-.company-products > span { color: var(--foreground-muted); font-size: 0.64rem; letter-spacing: 0.14em; text-transform: uppercase; }
+.company-products > span { color: var(--foreground-muted); font-size: var(--type-kicker); line-height: 1.125rem; letter-spacing: 0.14em; text-transform: uppercase; }
 .company-products > div { display: flex; gap: 1.2rem; }
-.company-products a { font-size: 0.75rem; }
+.company-products a { display: inline-flex; align-items: center; gap: 0.45rem; font-size: var(--type-meta); line-height: 1.25rem; }
+.company-products a img { width: 1.125rem; height: 1.125rem; flex: 0 0 auto; object-fit: contain; }
 .company-products a:hover { color: var(--blue); }
-.company-link { display: flex; justify-content: space-between; align-items: center; gap: 1rem; margin-top: 2rem; padding-top: 1.2rem; border-top: 1px solid var(--line); font-size: 0.8rem; font-weight: 600; }
+.company-link { display: flex; justify-content: space-between; align-items: center; gap: 1rem; margin-top: 2rem; padding-top: 1.2rem; border-top: 1px solid var(--line); font-size: 0.875rem; line-height: 1.3125rem; font-weight: 600; }
 .company-card--amber .company-link span { color: var(--accent); }
 .company-card--blue .company-link span { color: var(--blue); }
 
@@ -286,15 +296,15 @@ em { font-family: var(--font-serif); font-weight: 400; }
 .post-card:nth-child(odd) { border-right: 1px solid var(--line); }
 .post-card > a { min-height: 23rem; display: flex; flex-direction: column; padding: 2rem clamp(0rem, 2.5vw, 2rem) 2rem 0; }
 .post-card:nth-child(even) > a { padding-right: 0; padding-left: clamp(0rem, 2.5vw, 2rem); }
-.post-card-meta { display: flex; flex-wrap: wrap; gap: 0.8rem; color: var(--foreground-muted); font-size: 0.64rem; letter-spacing: 0.09em; text-transform: uppercase; }
+.post-card-meta { display: flex; flex-wrap: wrap; gap: 0.8rem; color: var(--foreground-muted); font-size: 0.71875rem; letter-spacing: 0.09em; text-transform: uppercase; }
 .post-card h2,
 .post-card h3 { margin: auto 0 1rem; max-width: 30rem; font-size: clamp(1.7rem, 3vw, 2.8rem); font-weight: 520; letter-spacing: -0.05em; line-height: 1.03; transition: color 180ms ease; }
-.post-card p { margin-bottom: 1.6rem; color: var(--foreground-soft); font-size: 0.9rem; line-height: 1.62; }
-.post-card-link { color: var(--foreground); font-size: 0.76rem; font-weight: 600; }
+.post-card p { margin-bottom: 1.6rem; color: var(--foreground-soft); font-size: var(--type-support); line-height: 1.6; }
+.post-card-link { color: var(--foreground); font-size: var(--type-meta); font-weight: 600; }
 .post-card-link span { color: var(--accent); margin-left: 0.3rem; }
 .post-card > a:hover h2,
 .post-card > a:hover h3 { color: var(--accent); }
-.text-link { display: inline-flex; gap: 0.5rem; color: var(--foreground-soft); font-size: 0.78rem; font-weight: 600; }
+.text-link { display: inline-flex; gap: 0.5rem; color: var(--foreground-soft); font-size: var(--type-meta); font-weight: 600; }
 .text-link:hover { color: var(--foreground); }
 .text-link span { color: var(--accent); }
 .writing-link { margin-top: 2rem; }
@@ -313,9 +323,9 @@ em { font-family: var(--font-serif); font-weight: 400; }
 .about-statement h2 { margin-bottom: 0; font-size: clamp(3rem, 5.4vw, 5.5rem); }
 .principles { border-top: 1px solid var(--line); }
 .principle { display: grid; grid-template-columns: 2.5rem 1fr; gap: 1rem; padding: 1.5rem 0; border-bottom: 1px solid var(--line); }
-.principle > span { color: var(--accent); font-size: 0.65rem; letter-spacing: 0.12em; }
-.principle h3 { margin-bottom: 0.5rem; font-size: 1rem; font-weight: 600; }
-.principle p { margin-bottom: 0; color: var(--foreground-soft); font-size: 0.84rem; line-height: 1.6; }
+.principle > span { color: var(--accent); font-size: var(--type-kicker); line-height: 1.125rem; letter-spacing: 0.12em; }
+.principle h3 { margin-bottom: 0.55rem; font-size: 1.25rem; line-height: 1.3; font-weight: 600; }
+.principle p { margin-bottom: 0; color: var(--foreground-soft); font-size: var(--type-support); line-height: 1.65; }
 
 .contact-section { padding-block: clamp(6rem, 12vw, 11rem); border-top: 1px solid var(--line); }
 .contact-section > div { display: flex; align-items: flex-end; justify-content: space-between; gap: 3rem; }
@@ -325,11 +335,11 @@ em { font-family: var(--font-serif); font-weight: 400; }
 .site-footer { border-top: 1px solid var(--line); background: #080a0d; }
 .footer-inner { display: grid; grid-template-columns: 1fr auto; gap: 3rem; padding-block: 3.5rem 2rem; }
 .footer-name { display: inline-block; margin-bottom: 0.65rem; font-weight: 650; }
-.footer-inner p { margin-bottom: 0; color: var(--foreground-muted); font-size: 0.76rem; line-height: 1.6; }
+.footer-inner p { margin-bottom: 0; color: var(--foreground-muted); font-size: 0.875rem; line-height: 1.6; }
 .footer-inner p a { color: var(--foreground-soft); }
 .footer-inner p a:hover { color: var(--accent); }
 .footer-links { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 1.4rem; }
-.footer-links a { color: var(--foreground-soft); font-size: 0.75rem; }
+.footer-links a { color: var(--foreground-soft); font-size: var(--type-meta); line-height: 1.25rem; }
 .footer-links a:hover { color: var(--foreground); }
 .footer-meta { grid-column: 1 / -1; padding-top: 2rem; border-top: 1px solid var(--line); }
 
@@ -367,7 +377,7 @@ em { font-family: var(--font-serif); font-weight: 400; }
   .header-inner { min-height: 4.5rem; gap: 1rem; }
   .wordmark-role { display: none; }
   .primary-nav { gap: 0.9rem; }
-  .primary-nav a { font-size: 0.7rem; }
+  .primary-nav a { font-size: var(--type-kicker); }
   .primary-nav a:nth-child(1), .primary-nav a:nth-child(3) { display: none; }
   .hero { min-height: auto; grid-template-columns: 1fr; padding-block: 4.5rem 3rem; }
   .hero-copy h1 { font-size: clamp(3.6rem, 17vw, 5.4rem); }
@@ -379,6 +389,10 @@ em { font-family: var(--font-serif); font-weight: 400; }
   .section-heading h2, .contact-section h2 { font-size: clamp(3rem, 15vw, 4.7rem); }
   .company-grid, .post-grid, .writing-list { grid-template-columns: 1fr; }
   .company-card { min-height: 31rem; }
+  .company-logo { width: min(6rem, 42%); margin-bottom: 1.2rem; }
+  .company-card-body > p:last-child { font-size: var(--type-support); }
+  .company-products > span { font-size: 0.6875rem; }
+  .principle h3 { font-size: 1.125rem; }
   .post-card:nth-child(odd), .writing-list .post-card:nth-child(odd) { border-right: 0; }
   .post-card > a, .post-card:nth-child(even) > a { min-height: 20rem; padding: 1.5rem 0; }
   .about-panel { padding: 1.5rem; }
