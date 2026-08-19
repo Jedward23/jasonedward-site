@@ -1,0 +1,44 @@
+---
+interface ProductLink {
+  label: string;
+  href: string;
+}
+
+interface Props {
+  index: string;
+  role: string;
+  name: string;
+  headline: string;
+  description: string;
+  href: string;
+  tone: 'amber' | 'blue';
+  products?: ProductLink[];
+}
+
+const { index, role, name, headline, description, href, tone, products = [] } = Astro.props;
+---
+
+<article class:list={['company-card', `company-card--${tone}`]}>
+  <div class="company-card-topline">
+    <span>{index}</span>
+    <span>{role}</span>
+  </div>
+  <div class="company-card-body">
+    <p class="company-name">{name}</p>
+    <h3>{headline}</h3>
+    <p>{description}</p>
+  </div>
+  {products.length > 0 && (
+    <div class="company-products" aria-label={`${name} products`}>
+      <span>Portfolio</span>
+      <div>
+        {products.map((product) => (
+          <a href={product.href} target="_blank" rel="noopener noreferrer">{product.label} <span aria-hidden="true">↗</span></a>
+        ))}
+      </div>
+    </div>
+  )}
+  <a class="company-link" href={href} target="_blank" rel="noopener noreferrer">
+    Visit {name} <span aria-hidden="true">↗</span>
+  </a>
+</article>

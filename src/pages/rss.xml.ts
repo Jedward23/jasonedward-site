@@ -13,7 +13,7 @@ export async function GET(context: APIContext) {
 
   return rss({
     title: "Jason Edward",
-    description: "Building AI systems that work.",
+    description: "Practical essays on autonomous agents, company systems, and building for the agentic era.",
     site: context.site!,
     items: sortedPosts.map((post) => ({
       link: `/blog/${post.slug}`,

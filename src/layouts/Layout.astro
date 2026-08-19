@@ -1,76 +1,64 @@
 ---
-import { ViewTransitions } from "astro:transitions";
-import '../styles/global.css'
+import { ViewTransitions } from 'astro:transitions';
+import '../styles/global.css';
 
 interface Props {
-  title?: string
-  description?: string
+  title?: string;
+  description?: string;
+  type?: 'website' | 'article';
+  image?: string;
 }
 
-const { title = "Jason Edward", description = "Building AI systems that work" } = Astro.props
+const {
+  title = 'Jason Edward | Founder & Operator',
+  description = 'Cofounder of Frosted and founder of Source Wave. Building companies, software, and operating systems for modern work.',
+  type = 'website',
+  image = '/social-card.png',
+} = Astro.props;
+const siteOrigin = Astro.site ?? Astro.url.origin;
+const canonicalUrl = new URL(Astro.url.pathname, siteOrigin);
+const socialImageUrl = new URL(image, siteOrigin);
 ---
 
 <!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="view-transition" content="same-origin" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="canonical" href={new URL(Astro.url.pathname, Astro.url)} />
+    <link rel="canonical" href={canonicalUrl} />
     <meta name="generator" content={Astro.generator} />
 
-    <!-- Preload fonts for instant text rendering -->
-    <link rel="preload" href="/fonts/atkinson-regular.woff" as="font" type="font/woff" crossorigin />
-    <link rel="preload" href="/fonts/atkinson-bold.woff" as="font" type="font/woff" crossorigin />
+    <link rel="preload" href="/fonts/instrument-sans-latin.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/playfair-display-italic-latin.woff2" as="font" type="font/woff2" crossorigin />
 
-    <!-- Meta -->
     <title>{title}</title>
-    <meta name="title" content={title} />
     <meta name="description" content={description} />
     <meta name="author" content="Jason Edward" />
+    <meta name="theme-color" content="#0b0d10" />
 
-    <!-- Open Graph -->
+    <meta property="og:type" content={type} />
+    <meta property="og:site_name" content="Jason Edward" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
-    <meta property="og:url" content={Astro.url} />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:image" content={socialImageUrl} />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Jason Edward — founder, operator, and builder" />
 
-    <!-- Twitter -->
-    <meta property="twitter:card" content="summary" />
-    <meta property="twitter:title" content={title} />
-    <meta property="twitter:description" content={description} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={socialImageUrl} />
+    <meta name="twitter:image:alt" content="Jason Edward — founder, operator, and builder" />
 
-    <meta name="theme-color" content="" />
-
-    <!-- RSS Feed -->
     <link rel="alternate" type="application/rss+xml" title="Jason Edward" href="/rss.xml" />
-
     <ViewTransitions />
-
-    <!-- Dark mode detection (inline to prevent flash) -->
-    <script is:inline>
-      const theme = (() => {
-        if (typeof localStorage !== "undefined" && localStorage.getItem("theme")) {
-          return localStorage.getItem("theme");
-        }
-        if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
-          return "dark";
-        }
-        return "light";
-      })();
-      document.documentElement.setAttribute("data-theme", theme);
-    </script>
   </head>
   <body>
     <slot />
   </body>
 </html>
-
-<style>
-  html,
-  body {
-    margin: 0;
-    width: 100%;
-    height: 100%;
-  }
-</style>

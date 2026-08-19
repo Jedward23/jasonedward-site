@@ -1,44 +1,27 @@
 ---
+import { getCollection } from 'astro:content';
 import Layout from '../../layouts/Layout.astro';
 import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
-import { getCollection } from 'astro:content';
+import PostCard from '../../components/PostCard.astro';
 
 const allPosts = await getCollection('blog');
 const posts = allPosts
   .filter((post) => !post.data.draft)
-  .sort((a, b) => new Date(b.data.pubDate).getTime() - new Date(a.data.pubDate).getTime());
+  .sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime());
 ---
 
-<Layout title="Posts — Jason Edward">
+<Layout title="Writing | Jason Edward" description="Practical essays by Jason Edward on autonomous agents, company systems, and building for the agentic era.">
   <Header />
-  <main class="mx-auto max-w-3xl px-4">
-    <section class="pt-12 pb-6">
-      <h1 class="text-2xl font-semibold tracking-wide mb-2">Posts</h1>
-      <p class="text-sm opacity-80 mb-8">Essays on AI, voice agents, and scaling systems that work.</p>
-      <ul>
-        {posts.map((post) => (
-          <li class="my-6">
-            <a href={`/blog/${post.slug}`} class="inline-block text-lg font-medium decoration-dashed underline-offset-4 focus-visible:no-underline focus-visible:p-1 hover:text-accent">
-              {post.data.title}
-            </a>
-            <div class="flex items-center gap-2 mt-1 text-sm opacity-80">
-              <time datetime={post.data.pubDate.toISOString()}>
-                {post.data.pubDate.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })}
-              </time>
-              {post.data.readTime && (
-                <>
-                  <span>·</span>
-                  <span>{post.data.readTime}</span>
-                </>
-              )}
-            </div>
-            <p class="mt-2 text-sm opacity-80">
-              {post.data.description}
-            </p>
-          </li>
-        ))}
-      </ul>
+  <main id="main-content" class="page-shell writing-page">
+    <header class="writing-hero">
+      <p class="eyebrow"><span></span> Writing</p>
+      <h1>Notes from<br /><em>the work.</em></h1>
+      <p>Practical essays on autonomous agents, company systems, and what breaks when theory meets operations.</p>
+    </header>
+
+    <section aria-label="All essays" class="writing-list">
+      {posts.map((post, index) => <PostCard post={post} index={String(index + 1).padStart(2, '0')} headingLevel={2} />)}
     </section>
   </main>
   <Footer />

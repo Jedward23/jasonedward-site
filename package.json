@@ -6,6 +6,8 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
+    "test": "npm run build && npm run test:server",
+    "test:server": "node --test test/server-routes.test.mjs",
     "astro": "astro"
   },
   "dependencies": {
